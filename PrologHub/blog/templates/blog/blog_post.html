@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block content %}
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8 blog-post">
+      <h3 class="pb-4 mb-4 font-italic border-bottom blog-post-title">
+        {{ page.title }}
+      </h3>
+      <p class="blog-post-meta">{{ page.last_published_at }} by <a href="#">{{ page.owner }}</a></p>
+      <div class="lead">{{ page.intro|richtext }}</div>
+      <hr/>
+      {% for block in page.body %}
+        {% include_block block %}
+      {% endfor %}
+
+      <nav class="blog-pagination mt-5">
+        <a class="btn btn-outline-primary" href="{{ page.get_parent.url }}">Return to blog</a>
+      </nav>
+    </div><!-- /.blog-post -->
+
+    <aside class="col-md-4 blog-sidebar">
+    {% if page.categories.all.count %}
+      <div class="p-4">
+          <h4 class="font-italic">Tags</h4>
+        <ol class="list-unstyled mb-0">
+        {% for category in page.categories.all %}
+        <li><a href="/?category={{ category }}">{{ category }}</a></li>
+        {% endfor %}
+        </ol>
+      </div>
+    {% endif %}{% if page.tags.all.count %}
+      <div class="p-4">
+          <h4 class="font-italic">Tags</h4>
+        <ol class="list-unstyled mb-0">
+        {% for tag in page.tags.all %}
+        <li><a href="/?tag={{ tag }}">{{ tag }}</a></li>
+        {% endfor %}
+        </ol>
+      </div>
+    {% endif %}
+
+    <!--
+      <div class="p-4">
+        <h4 class="font-italic">Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ol>
+    </div>-->
+    </aside><!-- /.blog-sidebar -->
+
+  </div><!-- /.row -->
+
+</main><!-- /.container -->
+
+{% endblock content %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'vendor/tau_prolog/js/tau-prolog.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/tau_prolog_posts.js' %}"></script>
+{% endblock %}
