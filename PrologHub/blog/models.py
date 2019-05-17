@@ -22,6 +22,14 @@ class BlogPostTag(TaggedItemBase):
     )
 
 
+class ExternalBlogPostTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'ExternalBlogPost',
+        related_name='tagged_items',
+        on_delete=models.CASCADE
+    )
+
+
 @register_snippet
 class Tag(TaggitTag):
     class Meta:
@@ -114,5 +122,27 @@ class BlogPost(Page):
     parent_page_types = ['home.HomePage']
     subpage_types = []
 
+
+class ExternalBlogPost(Page):
+    intro = RichTextField(blank=True, features=['bold', 'italic', 'link'])
+    tags = ClusterTaggableManager(through=ExternalBlogPostTag, blank=True)
+    categories = ParentalManyToManyField('blog.BlogCategory', blank=True)
+    content_location = models.URLField()
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
+            FieldPanel('tags'),
+        ], heading="Post Information"),
+        FieldPanel('intro'),
+        FieldPanel('content_location')
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+    ]
+
+    parent_page_types = ['home.HomePage']
+    subpage_types = []
 
 

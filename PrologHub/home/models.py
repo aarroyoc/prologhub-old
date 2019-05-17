@@ -7,6 +7,9 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooser
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 
+SUBPAGE_TYPES = ['blog.BlogPost', 'blog.ExternalBlogPost']
+
+
 class HomePage(Page):
     about = RichTextField(blank=True, features=['bold', 'italic', 'link'])
     main_featured_post = models.ForeignKey(
@@ -34,13 +37,13 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('about', classname="full"),
         MultiFieldPanel([
-            PageChooserPanel('main_featured_post', 'blog.BlogPost'),
-            PageChooserPanel('featured_post1', 'blog.BlogPost'),
-            PageChooserPanel('featured_post2', 'blog.BlogPost'),
+            PageChooserPanel('main_featured_post', SUBPAGE_TYPES),
+            PageChooserPanel('featured_post1', SUBPAGE_TYPES),
+            PageChooserPanel('featured_post2', SUBPAGE_TYPES)
         ], heading="Featured Posts")
     ]
 
-    subpage_types = ['blog.BlogPost']
+    subpage_types = SUBPAGE_TYPES
 
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron

@@ -58,12 +58,21 @@
 
       {% for post in blogpages %}
       <div class="blog-post">
+          {% if post.specific.content_location %}
+          <h2 class="blog-post-title"><a href="{{ post.specific.content_location }}" target="_blank" title="{{ post.specific.content_location }}">{{ post.title }}</a></h2>
+          <small><em>This post is external to PrologHub</em></small>
+          {% else %}
           <h2 class="blog-post-title"><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+          {% endif %}
           <p class="blog-post-meta">{{ post.latest_revision_created_at.date }} by <a href="#">{{ post.owner.first_name }} {{ post.owner.last_name }}</a></p>
 
           <div class="lead">{{ post.specific.intro|richtext }}</div>
+          {% if post.specific.content_location %}
+          <div class="text-right"><a href="{{ post.specific.content_location}}" target="_blank" title="{{ post.specific.content_location }}">Open link in new tab...</a></div>
+          {% else %}
+          <div class="text-right"><a href="{% pageurl post %}">Continue reading...</a></div>
+          {% endif %}
           <hr/>
-          {{ post.specific.content|richtext }}
       </div><!-- /.blog-post -->
       {% empty %}
       <p class="lead">No Posts found</p>
