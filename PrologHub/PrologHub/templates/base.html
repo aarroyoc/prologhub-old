@@ -20,11 +20,22 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap_blog.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap_blog.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'vendor/cookiealert/cookiealert.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/PrologHub.css' %}">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140394126-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-140394126-1');
+        </script>
     </head>
 
     <body>
@@ -75,8 +86,18 @@
         </div>
     </footer>
 
+    <div class="alert alert-dismissible text-center cookiealert" role="alert">
+	  <div class="cookiealert-container">
+	      <b>Do you like cookies?</b> &#x1F36A; We use cookies to anonomously track what our popular posts are so we can keep writing what you want to read.
+	      <button type="button" class="btn btn-primary btn-sm acceptcookies" aria-label="Close">
+	          I agree
+	      </button>
+	  </div>
+	</div>
+
     {# Global javascript #}
     <!-- <script type="text/javascript" src="{% static 'js/PrologHub.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'vendor/cookiealert/cookiealert.js' %}"></script>
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
