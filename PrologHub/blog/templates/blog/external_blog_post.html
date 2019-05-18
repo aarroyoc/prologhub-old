@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load static wagtailcore_tags %}
 
 {% block content %}
 <main role="main" class="container">
@@ -11,7 +11,10 @@
       <p class="blog-post-meta">{{ page.last_published_at }} by <a href="#">{{ page.owner }}</a></p>
       <div class="lead">{{ page.intro|richtext }}</div>
       <hr/>
-      {{ page.content|richtext }}
+      <p><strong>The content of this post is hosted externally to PrologHub</strong> 
+      You can access it here: <a href="{{ page.content_location }}" target="_blank" title="{{ page.content_location }}">
+	      {{ page.title }}</a>
+      </p>
 
       <nav class="blog-pagination mt-5">
         <a class="btn btn-outline-primary" href="{{ page.get_parent.url }}">Return to blog</a>
@@ -24,7 +27,7 @@
           <h4 class="font-italic">Tags</h4>
         <ol class="list-unstyled mb-0">
         {% for category in page.categories.all %}
-        <li><a href="{% slugurl 'blog' %}?category={{ category }}">{{ category }}</a></li>
+        <li><a href="/?category={{ category }}">{{ category }}</a></li>
         {% endfor %}
         </ol>
       </div>
@@ -33,7 +36,7 @@
           <h4 class="font-italic">Tags</h4>
         <ol class="list-unstyled mb-0">
         {% for tag in page.tags.all %}
-        <li><a href="{% slugurl 'blog' %}?tag={{ tag }}">{{ tag }}</a></li>
+        <li><a href="/?tag={{ tag }}">{{ tag }}</a></li>
         {% endfor %}
         </ol>
       </div>
@@ -47,8 +50,7 @@
           <li><a href="#">Twitter</a></li>
           <li><a href="#">Facebook</a></li>
         </ol>
-      </div>
-      -->
+    </div>-->
     </aside><!-- /.blog-sidebar -->
 
   </div><!-- /.row -->
@@ -56,3 +58,8 @@
 </main><!-- /.container -->
 
 {% endblock content %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'vendor/tau_prolog/js/tau-prolog.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/tau_prolog_posts.js' %}"></script>
+{% endblock %}
