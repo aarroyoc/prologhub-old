@@ -23,7 +23,7 @@
     <aside class="col-md-4 blog-sidebar">
     {% if page.categories.all.count %}
       <div class="p-4">
-          <h4 class="font-italic">Tags</h4>
+          <h4 class="font-italic">Categories</h4>
         <ol class="list-unstyled mb-0">
         {% for category in page.categories.all %}
         <li><a href="/?category={{ category }}">{{ category }}</a></li>
