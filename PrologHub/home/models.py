@@ -6,6 +6,7 @@ from blog.models import BlogPost
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
+from wagtail.users.models import UserProfile
 
 SUBPAGE_TYPES = ['blog.BlogPost', 'blog.ExternalBlogPost']
 
@@ -49,6 +50,7 @@ class HomePage(Page):
         # Update context to include only published posts, ordered by reverse-chron
         tag = request.GET.get('tag')
         category = request.GET.get('category')
+        author = request.GET.get('author')
         page = request.GET.get('page')
 
         if category:
@@ -57,6 +59,13 @@ class HomePage(Page):
         elif tag:
             blogpages = self.get_children().live().filter(models.Q(externalblogpost__tags__name=tag)|models.Q(blogpost__tags__name=tag)).order_by('-first_published_at')
             search = f"tagged: \"{tag}\""
+        elif author:
+            blogpages = self.get_children().live().filter(owner__username=author).order_by('-first_published_at')
+            if len(blogpages) > 0:
+                owner = blogpages[0].owner
+                search = f"written by: \"{owner.first_name} {owner.last_name}\""
+            else:
+                search = "we don't recognize that author"
         else:
             blogpages = self.get_children().live().order_by('-first_published_at')
             search = False
