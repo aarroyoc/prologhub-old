@@ -64,7 +64,7 @@
           {% else %}
           <h2 class="blog-post-title"><a href="{% pageurl post %}">{{ post.title }}</a></h2>
           {% endif %}
-          <p class="blog-post-meta">{{ post.latest_revision_created_at.date }} by <a href="#">{{ post.owner.first_name }} {{ post.owner.last_name }}</a></p>
+	  <p class="blog-post-meta">{{ post.latest_revision_created_at.date }} by <a href="/?author={{ post.owner }}">{{ post.owner.first_name }} {{ post.owner.last_name }}</a></p>
 
           <div class="lead">{{ post.specific.intro|richtext }}</div>
           {% if post.specific.content_location %}
