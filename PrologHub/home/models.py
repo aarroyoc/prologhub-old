@@ -52,10 +52,10 @@ class HomePage(Page):
         page = request.GET.get('page')
 
         if category:
-            blogpages = BlogPost.objects.live().filter(categories__name=category).order_by('-first_published_at')
+            blogpages = self.get_children().live().filter(models.Q(externalblogpost__categories__name=category)|models.Q(blogpost__categories__name=category)).order_by('-first_published_at')
             search = f"in category: \"{category}\""
         elif tag:
-            blogpages = BlogPost.objects.live().filter(tags__name=tag).order_by('-first_published_at')
+            blogpages = self.get_children().live().filter(models.Q(externalblogpost__tags__name=tag)|models.Q(blogpost__tags__name=tag)).order_by('-first_published_at')
             search = f"tagged: \"{tag}\""
         else:
             blogpages = self.get_children().live().order_by('-first_published_at')
