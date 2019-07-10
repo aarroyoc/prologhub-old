@@ -1,8 +1,12 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags blog_tags %}
+{% load wagtailcore_tags blog_tags static %}
 
 {% block category_nav %}
     {% categories %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -11,39 +15,44 @@
 <div class="container">
 
   {% if page.main_featured_post %}
-  <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
-    <div class="col-md-6 px-0">
-        <h1 class="display-4 font-italic">{{ page.main_featured_post.title }}</h1>
-        <p class="lead my-3">{{ page.main_featured_post.specific.intro|richtext }}</p>
-      <p class="lead mb-0"><a href="{% pageurl page.main_featured_post %}" class="text-white font-weight-bold">Continue reading...</a></p>
-    </div>
-  </div>
+    <a href="{% pageurl page.main_featured_post %}" class="main_featured_post">
+      <div class="jumbotron p-4 p-md-5 rounded bg-dark">
+            <div class="col-md-12 px-0">
+                <h1 class="display-4 font-italic">{{ page.main_featured_post.title }}</h1>
+                <p class="lead my-3">{{ page.main_featured_post.specific.intro|richtext }}</p>
+            </div>
+      </div>
+    </a>
   {% endif %}
 
   <div class="row mb-2">
     {% if page.featured_post1 %}
-    <div class="col-md-6">
-      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-success">{{ page.featured_post1.specific.categories.first }}</strong>
-            <h3 class="mb-0">{{ page.featured_post1.title }}</h3>
-          <div class="mb-1 text-muted">{{ page.featured_post1.latest_revision_created_at.date }}</div>
-          <p class="card-text mb-auto">{{ page.featured_post1.specific.intro|richtext }}</p>
+        <div class="col-md-6">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 pb-2 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static constrained_height">
+                <strong class="d-inline-block mb-2 text-success">{{ page.featured_post1.specific.categories.first }}</strong>
+                <a href="{% pageurl page.featured_post1 %}" class="featured_post">
+                  <h3 class="mb-0">{{ page.featured_post1.title }}</h3>
+                  <div class="mb-1 text-muted">{{ page.featured_post1.latest_revision_created_at.date }}</div>
+                  <p class="card-text mb-auto">{{ page.featured_post1.specific.intro|richtext }}</p>
+                </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
     {% endif %}
     {% if page.featured_post2 %}
-    <div class="col-md-6">
-      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-success">{{ page.featured_post1.specific.categories.first }}</strong>
-            <h3 class="mb-0">{{ page.featured_post2.title }}</h3>
-          <div class="mb-1 text-muted">{{ page.featured_post2.latest_revision_created_at.date }}</div>
-          <p class="card-text mb-auto">{{ page.featured_post2.specific.intro|richtext }}</p>
+        <div class="col-md-6">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 pb-2 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static constrained_height">
+                <strong class="d-inline-block mb-2 text-success">{{ page.featured_post1.specific.categories.first }}</strong>
+                <a href="{% pageurl page.featured_post2 %}" class="featured_post">
+                  <h3 class="mb-0">{{ page.featured_post2.title }}</h3>
+                  <div class="mb-1 text-muted">{{ page.featured_post2.latest_revision_created_at.date }}</div>
+                  <p class="card-text mb-auto">{{ page.featured_post2.specific.intro|richtext }}</p>
+                </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
     {% endif %}
     </div>
 </div>

@@ -1,0 +1,25 @@
+.featured_post,
+.main_featured_post {
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.featured_post:hover {
+    text-decoration: none;
+}
+
+.featured_post {
+    color: #333;
+}
+
+.main_featured_post {
+    color: white;
+}
+
+.main_featured_post:hover {
+    color: #FF6929;
+}
+
+.constrained_height {
+    max-height: 100%
+}
