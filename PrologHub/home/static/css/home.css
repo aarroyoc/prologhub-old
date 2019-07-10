@@ -18,6 +18,7 @@
 
 .main_featured_post:hover {
     color: #FF6929;
+    text-decoration: none;
 }
 
 .constrained_height {
