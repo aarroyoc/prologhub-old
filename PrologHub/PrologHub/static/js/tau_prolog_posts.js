@@ -1,20 +1,22 @@
 function pl_query(query_value, code_value, query_id) {
     const engine = pl.create();
-    const parsed = engine.consult(code_value);
-    if (parsed !== true) {
-        console.log("Parse Error")
-        console.log(parsed);
-        }
-    const queried = engine.query(query_value);
-    if (queried !== true) {
-        console.log("Query Error")
-        console.log(queried);
-        }
 
     const answers_id = `${ query_id }_answers`;
     const answers = document.getElementById(answers_id);
     answers.innerHTML = "";
-    engine.answers(pl_answer(answers));
+    const give_answer = pl_answer(answers)
+
+    const parsed = engine.consult(code_value);
+    if (parsed !== true) {
+        give_answer(parsed)
+        }
+
+    const queried = engine.query(query_value);
+    if (queried !== true) {
+        give_answer(queried)
+        }
+
+    engine.answers(give_answer);
 }
 
 function pl_answer(answers) {
