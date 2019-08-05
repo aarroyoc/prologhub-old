@@ -8,10 +8,10 @@
       <h3 class="pb-4 mb-4 font-italic border-bottom blog-post-title">
         {{ page.title }}
       </h3>
-      <p class="blog-post-meta">{{ page.last_published_at }} by <a href="#">{{ page.owner }}</a></p>
+      <p class="blog-post-meta">{{ page.last_published_at }} by <a href="/?author={{ page.owner }}">{{ page.owner }}</a></p>
       <div class="lead">{{ page.intro|richtext }}</div>
       <hr/>
-      <p><strong>The content of this post is hosted externally to PrologHub</strong> 
+      <p><strong>The content of this post is hosted externally to PrologHub</strong>
       You can access it here: <a href="{{ page.content_location }}" target="_blank" title="{{ page.content_location }}">
 	      {{ page.title }}</a>
       </p>

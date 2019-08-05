@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags blog_tags static %}
 
-{% block category_nav %}
-    {% categories %}
-{% endblock %}
-
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 {% endblock %}

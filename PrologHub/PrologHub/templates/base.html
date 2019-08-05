@@ -1,4 +1,4 @@
-{% load static wagtailuserbar %}
+{% load static wagtailuserbar blog_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -63,8 +63,9 @@
                   </div>
                 </div>
             </header>
-            {% block category_nav %}{% endblock %}
+            {% categories %}
       </div>
+
 
             {% block content %}{% endblock %}
 
