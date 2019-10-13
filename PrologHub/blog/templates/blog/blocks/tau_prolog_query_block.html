@@ -1,13 +1,15 @@
 {% load wagtailcore_tags %}
-<form>
-    <div class="form-group row">
-        <div class="col-sm-9">
-            <input type="text" class="query form-control" value="{{ value.query }}" placeholder="{{ value.query }}" id="{{ value.id }}"/>
-        </div>
-        <div class="col-sm-3">
-            <input type="button" class="btn btn-primary" value="Run Query" onClick="pl_query({{ value.id }}.value, {{ value.for_code }}.value, {{ value.id }}.id)"/>
+<div class="form align-items-center">
+    <div class="input-group mb-2">
+        <div class="input-group-prepend"><pre class="query_prompt input-group-text">?-</pre></div>
+        <input class="query form-control text-monospace" value="{{ value.query }}" placeholder="{{ value.query }}" type="text" id="{{ value.id }}">
+        <div class="input-group-append">
+            <input class="btn btn-warning" style="display:none" type="button" id="clear-{{ value.id }}" value="Clear Answers" onclick="clear_answers({{ value.id }})">
+            <input class="btn btn-primary" type="button" id="action-{{ value.id }}" data-role="query" value="Run Query" onclick="onActionBtnClick(this, {{ value.for_code }}, {{ value.id }})" onkeydown="onActionBtnKeyDown(this, event, {{ value.for_code }}, {{ value.id }})">
         </div>
     </div>
-</form>
-<ul class="answers list-group mb-2" id="{{ value.id }}_answers">
-</ul>
+    <ul class="list-group mb-2" style="display:none" id="results-{{ value.id }}">
+        <li class="list-group-item list-group-item-success template success d-none"></li>
+        <li class="list-group-item list-group-item-warning template warning d-none"></li>
+    </ul>
+</div>
