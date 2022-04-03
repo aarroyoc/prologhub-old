@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'wagtail_feeds',
     'modelcluster',
     'taggit',
+    'wagtailcodeblock',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -165,3 +166,15 @@ WAGTAIL_SITE_NAME = "PrologHub"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+
+WAGTAIL_CODE_BLOCK_LANGUAGES = (
+    ('bash', 'Bash/Shell'),
+    ('css', 'CSS'),
+    ('html', 'HTML'),
+    ('javascript', 'JavaScript'),
+    ('json', 'JSON'),
+    ('prolog', 'Prolog'),
+    ('python', 'Python'),
+    ('yaml', 'YAML'),
+)

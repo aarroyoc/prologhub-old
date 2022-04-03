@@ -1,0 +1,35 @@
+version: "3.6"
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - data:/var/lib/postgresql/data
+  web:
+    build: PrologHub
+    restart: always
+    volumes:
+     - static:/code/static/
+     - media:/code/media/
+    depends_on:
+     - postgres
+  nginx:
+    image: nginx:1.21.4-alpine
+    restart: always
+    depends_on:
+     - web
+    ports:
+     - 8000:8000
+    volumes:
+     - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+     - static:/opt/prologhub/static:ro
+     - media:/opt/prologhub/media
+
+volumes:
+  data:
+  static:
+  media:

@@ -14,6 +14,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
+from wagtailcodeblock.blocks import CodeBlock
+
 class BlogPostTag(TaggedItemBase):
     content_object = ParentalKey(
         'BlogPost',
@@ -102,7 +104,8 @@ class BlogPost(Page):
                                                   'blockquote'
                                                   ])),
         ('tau_prolog_code', TauPrologCodeBlock()),
-        ('tau_prolog_query', TauPrologQueryBlock())
+        ('tau_prolog_query', TauPrologQueryBlock()),
+        ('code_block', CodeBlock(label="Any code"))
     ])
 
     content_panels = Page.content_panels + [
